@@ -17,7 +17,7 @@ export default function Newsletter() {
     <section className="newsletter" id="newsletter" aria-labelledby="newsletter-title">
       <div className="newsletter__inner" data-reveal>
         <span className="newsletter__icon"><Icon name="mail" /></span>
-        <h2 className="section-title" id="newsletter-title">Pond notes</h2>
+        <h2 className="section-title" id="newsletter-title">Tank notes</h2>
         <p className="newsletter__lede">New arrivals before they hit the shop, seasonal care tips, and the occasional fish story. Once a month, never more.</p>
 
         {state === 'done' ? (

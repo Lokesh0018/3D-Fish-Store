@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-import MODEL_URL from '../assets/models/hf_20261013_132630_0605aa00-d02f-4d71-9db5-e0d1a8232667.glb?url';
+import MODEL_URL from '../assets/models/fish/hf_20261013_132630_0605aa00-d02f-4d71-9db5-e0d1a8232667.glb?url';
 
 const NS = 32;
 const CRUISE = 0.3;

@@ -1,77 +1,98 @@
-// Set `image` to a photo URL (or an import from src/assets) for each fish; until then a placeholder shows.
+// Product photos: background removed, centred on a transparent 1000×1000 canvas
+// (cut out from the original f1–f10 photos; stored in src/assets/images/fish).
+import crimsonHalfmoon from '../assets/images/fish/betta-red-blue-halfmoon.webp';
+import mustardGas from '../assets/images/fish/betta-mustard-gas.webp';
+import royalBlue from '../assets/images/fish/betta-royal-blue.webp';
+import turquoise from '../assets/images/fish/betta-turquoise.webp';
+import rose from '../assets/images/fish/betta-rose.webp';
+import pastelBlush from '../assets/images/fish/betta-pastel-blush.webp';
+import koiBetta from '../assets/images/fish/betta-koi.webp';
+import silverAngel from '../assets/images/fish/angelfish-silver.webp';
+import moorishIdol from '../assets/images/fish/moorish-idol.webp';
+import eagleRay from '../assets/images/fish/spotted-eagle-ray.webp';
+
+// size = body length in cm (disc width for the ray); tank = minimum recommended setup.
 export const PRODUCTS = [
   {
-    id: 'kohaku', name: 'Kohaku', category: 'koi', price: 180, size: 18, age: '1 yr',
-    tag: 'Best seller',
-    blurb: 'Snow-white body with deep, even hi (red) markings. The classic koi.',
-    image: null,
+    id: 'mustard-gas', name: 'Mustard Gas Halfmoon', category: 'betta', species: 'Betta splendens',
+    water: 'Freshwater', care: 'Easy', tank: '5 gal heated',
+    price: 48, size: 6, age: '5 mo', tag: 'Show grade',
+    blurb: 'Deep blue body with sunlit mustard fins edged in blue — a classic, sought-after colour form.',
+    image: mustardGas,
   },
   {
-    id: 'sanke', name: 'Taisho Sanke', category: 'koi', price: 220, size: 20, age: '1 yr',
-    blurb: 'Kohaku pattern accented with small black sumi on the back.',
-    image: null,
+    id: 'crimson-halfmoon', name: 'Crimson Halfmoon', category: 'betta', species: 'Betta splendens',
+    water: 'Freshwater', care: 'Easy', tank: '5 gal heated',
+    price: 42, size: 6, age: '5 mo', tag: 'Best seller',
+    blurb: 'Metallic blue scales under crimson fins rimmed in electric blue, opening to a full 180° spread.',
+    image: crimsonHalfmoon,
   },
   {
-    id: 'showa', name: 'Showa Sanshoku', category: 'koi', price: 260, size: 22, age: '2 yr',
-    tag: 'Show grade',
-    blurb: 'Bold black base wrapped in red and white. Dramatic in any pond.',
-    image: null,
+    id: 'royal-blue', name: 'Royal Blue Halfmoon', category: 'betta', species: 'Betta splendens',
+    water: 'Freshwater', care: 'Easy', tank: '5 gal heated',
+    price: 36, size: 6, age: '4 mo', tag: 'Beginner friendly',
+    blurb: 'Solid royal blue from nose to fin tips. Bold, curious and quick to recognise its keeper.',
+    image: royalBlue,
   },
   {
-    id: 'tancho', name: 'Tancho', category: 'koi', price: 240, size: 17, age: '1 yr',
-    blurb: 'Pure white with a single round crimson crown. Highly prized.',
-    image: null,
+    id: 'turquoise', name: 'Turquoise Halfmoon', category: 'betta', species: 'Betta splendens',
+    water: 'Freshwater', care: 'Easy', tank: '5 gal heated',
+    price: 40, size: 6, age: '5 mo', tag: 'New in',
+    blurb: 'Pale turquoise fins like layered silk over a pearly body. Soft colour that glows under warm light.',
+    image: turquoise,
   },
   {
-    id: 'yamabuki', name: 'Yamabuki Ogon', category: 'koi', price: 140, size: 20, age: '1 yr',
-    tag: 'Beginner friendly',
-    blurb: 'Metallic gold from nose to tail. Hardy, bold and quick to hand-feed.',
-    image: null,
+    id: 'rose', name: 'Rose Halfmoon', category: 'betta', species: 'Betta splendens',
+    water: 'Freshwater', care: 'Easy', tank: '5 gal heated',
+    price: 44, size: 6, age: '5 mo',
+    blurb: 'Coral-red body with a white saddle and rose-pink fins that billow like petals.',
+    image: rose,
   },
   {
-    id: 'platinum', name: 'Platinum Ogon', category: 'koi', price: 150, size: 19, age: '1 yr',
-    blurb: 'Single-colour metallic white that glows under moonlight.',
-    image: null,
+    id: 'koi-halfmoon', name: 'Koi Halfmoon', category: 'betta', species: 'Betta splendens',
+    water: 'Freshwater', care: 'Easy', tank: '5 gal heated',
+    price: 65, size: 6, age: '6 mo', tag: 'Rare colour',
+    blurb: 'Pearl-white with koi-style patches of red-orange and black. Marble genes mean his pattern keeps shifting as he grows.',
+    image: koiBetta,
   },
   {
-    id: 'asagi', name: 'Asagi', category: 'koi', price: 190, size: 21, age: '2 yr',
-    blurb: 'Blue-grey netted back over warm orange flanks. An ancient variety.',
-    image: null,
+    id: 'pastel-blush', name: 'Pastel Blush Halfmoon', category: 'betta', species: 'Betta splendens',
+    water: 'Freshwater', care: 'Easy', tank: '5 gal heated',
+    price: 46, size: 6, age: '5 mo',
+    blurb: 'Opaque blush-pink body under layers of soft white and pink fins, with a faint blue-grey shimmer.',
+    image: pastelBlush,
   },
   {
-    id: 'chagoi', name: 'Chagoi', category: 'koi', price: 120, size: 24, age: '2 yr',
-    tag: 'Gentle giant',
-    blurb: 'Tea-brown and famously friendly — often the first to greet you.',
-    image: null,
+    id: 'silver-angel', name: 'Silver Angelfish', category: 'angelfish', species: 'Pterophyllum scalare',
+    water: 'Freshwater', care: 'Moderate', tank: '30 gal tall',
+    price: 22, size: 8, age: '4 mo', tag: 'Community',
+    blurb: 'The classic angelfish: silver body, bold black bars and long trailing fins. Peaceful in a tall planted tank.',
+    image: silverAngel,
   },
   {
-    id: 'ryukin', name: 'Ryukin', category: 'goldfish', price: 38, size: 8, age: '6 mo',
-    blurb: 'High-backed fancy goldfish with a flowing triple tail.',
-    image: null,
+    id: 'moorish-idol', name: 'Moorish Idol', category: 'marine', species: 'Zanclus cornutus',
+    water: 'Saltwater', care: 'Expert', tank: '125 gal reef',
+    price: 160, size: 12, age: 'Sub-adult', tag: 'Expert only',
+    blurb: 'A reef icon in sunflower yellow and ink black. Needs a mature reef system and an experienced keeper.',
+    image: moorishIdol,
   },
   {
-    id: 'oranda', name: 'Oranda', category: 'goldfish', price: 45, size: 9, age: '8 mo',
-    tag: 'New in',
-    blurb: 'Pearl-white body crowned with a soft red wen.',
-    image: null,
-  },
-  {
-    id: 'comet', name: 'Comet', category: 'goldfish', price: 18, size: 10, age: '6 mo',
-    blurb: 'Fast, slim and fiery orange. Thrives outdoors year-round.',
-    image: null,
-  },
-  {
-    id: 'shubunkin', name: 'Shubunkin', category: 'goldfish', price: 24, size: 10, age: '6 mo',
-    blurb: 'Calico blue speckled with orange and ink — no two alike.',
-    image: null,
+    id: 'eagle-ray', name: 'Spotted Eagle Ray', category: 'marine', species: 'Aetobatus narinari',
+    water: 'Saltwater', care: 'Expert', tank: 'Public-aquarium scale',
+    price: 1850, size: 60, age: 'Juvenile', tag: 'Special order',
+    blurb: 'A starfield of white spots across wide, gliding wings. For very large systems only — we confirm your setup before shipping.',
+    image: eagleRay,
   },
 ];
 
 export const CATEGORIES = [
   { id: 'all', label: 'All fish' },
-  { id: 'koi', label: 'Koi' },
-  { id: 'goldfish', label: 'Goldfish' },
+  { id: 'betta', label: 'Bettas' },
+  { id: 'angelfish', label: 'Angelfish' },
+  { id: 'marine', label: 'Marine' },
 ];
+
+export const categoryLabel = (id) => CATEGORIES.find((c) => c.id === id)?.label ?? id;
 
 export const FREE_SHIPPING_FROM = 250;
 export const SHIPPING_FEE = 45;

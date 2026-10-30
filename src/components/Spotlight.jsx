@@ -35,7 +35,7 @@ export default function Spotlight({ onFilter }) {
           <button type="button" className="btn btn--cream" onClick={() => { add(product.id); setAdded(true); }}>
             {added ? 'Added to cart' : 'Add to cart'}
           </button>
-          <a className="text-link" href="#shop" onClick={() => onFilter('koi')}>See all koi</a>
+          <a className="text-link" href="#shop" onClick={() => onFilter(product.category)}>See all bettas</a>
         </div>
       </div>
     </section>

@@ -6,7 +6,7 @@ export default function Journey() {
     <section className="journey" id="journey" aria-labelledby="journey-title">
       <div className="section-head" data-reveal>
         <p className="eyebrow">How it arrives</p>
-        <h2 className="section-title" id="journey-title">From our pond to yours</h2>
+        <h2 className="section-title" id="journey-title">From our tanks to yours</h2>
       </div>
       <ol className="journey__steps">
         {JOURNEY.map((s, i) => (

@@ -37,7 +37,7 @@ export default function CartDrawer() {
 
         {items.length === 0 ? (
           <div className="drawer__empty">
-            <p>Your pond is empty.</p>
+            <p>Your tank is empty.</p>
             <a className="btn btn--ink" href="#shop" onClick={() => setOpen(false)}>Browse fish</a>
           </div>
         ) : (

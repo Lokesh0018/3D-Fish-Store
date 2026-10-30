@@ -7,7 +7,7 @@ export default function Reviews() {
   return (
     <section className="reviews" id="reviews" aria-labelledby="reviews-title">
       <div className="section-head" data-reveal>
-        <p className="eyebrow">Happy ponds</p>
+        <p className="eyebrow">Happy tanks</p>
         <h2 className="section-title" id="reviews-title">Kept by people who care</h2>
       </div>
       <ul className="reviews__list">

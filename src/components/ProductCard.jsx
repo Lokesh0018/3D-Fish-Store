@@ -24,7 +24,12 @@ export default function ProductCard({ product }) {
           <h3 className="card__name">{product.name}</h3>
           <p className="card__price">{formatPrice(product.price)}</p>
         </div>
-        <p className="card__meta">{product.category === 'koi' ? 'Koi' : 'Goldfish'} · {product.size} cm · {product.age}</p>
+        <p className="card__meta"><i>{product.species}</i> · {product.size} cm · {product.age}</p>
+        <ul className="card__facts" aria-label="Care details">
+          <li>{product.water}</li>
+          <li className={`care care--${product.care.toLowerCase()}`}>{product.care} care</li>
+          <li>{product.tank}</li>
+        </ul>
         <p className="card__blurb">{product.blurb}</p>
         <button type="button" className="btn btn--ink card__add" onClick={() => { add(product.id); setAdded(true); }}>
           {added ? 'Added to cart' : 'Add to cart'}

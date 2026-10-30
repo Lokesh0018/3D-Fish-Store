@@ -55,8 +55,8 @@ export default function Hero() {
       <canvas className={`koi${ready ? ' is-ready' : ''}`} ref={canvasRef} aria-hidden="true" />
 
       <div className="hero__foot">
-        <p className="hero__lede">Hand-raised koi and goldfish,<br />shipped live to your pond</p>
-        <a className="hero__cta" href="#shop">Shop the pond</a>
+        <p className="hero__lede">Show-grade bettas and rare ornamentals,<br />shipped live to your door</p>
+        <a className="hero__cta" href="#shop">Shop the fish</a>
       </div>
 
       <p className="status" role="status" hidden={status.hidden}>{status.text}</p>

@@ -21,7 +21,7 @@ export default function Shop({ filter, onFilter }) {
   return (
     <section className="shop" id="shop" aria-labelledby="shop-title">
       <div className="section-head">
-        <p className="eyebrow">The pond</p>
+        <p className="eyebrow">The collection</p>
         <h2 className="section-title" id="shop-title">Fish ready to come home</h2>
       </div>
 

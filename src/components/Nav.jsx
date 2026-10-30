@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useCart } from '../cart/CartContext.jsx';
-import { PRODUCTS, FREE_SHIPPING_FROM, formatPrice } from '../data/products.js';
+import { PRODUCTS, CATEGORIES, FREE_SHIPPING_FROM, formatPrice } from '../data/products.js';
 import { SPOTLIGHT } from '../data/content.js';
 import FishImage from './FishImage.jsx';
 import Icon from './Icon.jsx';
@@ -9,17 +9,18 @@ const byId = (id) => PRODUCTS.find((p) => p.id === id);
 const countOf = (cat) => PRODUCTS.filter((p) => cat === 'all' || p.category === cat).length;
 const spotlight = byId(SPOTLIGHT.productId);
 
-const TILES = [
-  { filter: 'all', label: 'All fish', hint: `${countOf('all')} in stock`, product: byId('kohaku') },
-  { filter: 'koi', label: 'Koi', hint: `${countOf('koi')} varieties`, product: byId('showa') },
-  { filter: 'goldfish', label: 'Goldfish', hint: `${countOf('goldfish')} varieties`, product: byId('oranda') },
-];
+// One tile per category, each shown with a representative fish.
+const TILE_FISH = { all: 'crimson-halfmoon', betta: 'mustard-gas', angelfish: 'silver-angel', marine: 'moorish-idol' };
+const TILES = CATEGORIES.map((c) => {
+  const n = countOf(c.id);
+  return { filter: c.id, label: c.label, hint: c.id === 'all' ? `${n} in stock` : `${n} ${n === 1 ? 'variety' : 'varieties'}`, product: byId(TILE_FISH[c.id]) };
+});
 
 const LINKS = [
   { href: '#care', icon: 'shield', title: 'Our promise', hint: 'Quarantine & guarantee' },
   { href: '#journey', icon: 'truck', title: 'How it arrives', hint: 'Overnight, oxygen-packed' },
-  { href: '#reviews', icon: 'star', title: 'Reviews', hint: 'From happy ponds' },
-  { href: '#faq', icon: 'help', title: 'FAQ', hint: 'Ponds, winter, care' },
+  { href: '#reviews', icon: 'star', title: 'Reviews', hint: 'From happy keepers' },
+  { href: '#faq', icon: 'help', title: 'FAQ', hint: 'Tanks, shipping, care' },
 ];
 
 export default function Nav({ filter, onFilter }) {
@@ -87,7 +88,7 @@ export default function Nav({ filter, onFilter }) {
           <div className="menu__shop">
             <div className="menu__head" style={{ '--i': order++ }}>
               <p className="menu__kicker" id="menu-browse">Shop</p>
-              <p className="menu__title">Browse the pond</p>
+              <p className="menu__title">Browse the collection</p>
             </div>
 
             <ul className="menu__tiles" aria-labelledby="menu-browse">
@@ -96,7 +97,7 @@ export default function Nav({ filter, onFilter }) {
                 return (
                   <li key={t.filter} style={{ '--i': order++ }}>
                     <a className="tile" href="#shop" data-menu-item aria-current={active ? 'true' : undefined} onClick={() => pick(t.filter)}>
-                      <span className="tile__art"><FishImage product={t.product} /></span>
+                      <span className="tile__art"><FishImage product={t.product} eager /></span>
                       <span className="tile__body">
                         <span className="tile__label">{t.label}</span>
                         <span className="tile__hint">{active ? 'Showing now' : t.hint}</span>
@@ -113,7 +114,7 @@ export default function Nav({ filter, onFilter }) {
 
           <div className="menu__side">
             <a className="feature" href="#spotlight" data-menu-item onClick={() => close(false)} style={{ '--i': order++ }}>
-              <span className="feature__art"><FishImage product={spotlight} /></span>
+              <span className="feature__art"><FishImage product={spotlight} eager /></span>
               <span className="feature__text">
                 <span className="feature__tag"><Icon name="sparkle" filled /> Fish of the month</span>
                 <span className="feature__name">{spotlight.name}</span>
