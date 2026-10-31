@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-// Wave band that drifts sideways only while the page scrolls (offset is tied to scrollY).
+// Wave band that drifts sideways only while the page scrolls (offset is tied to scrollY),
+// or, with `continuous`, loops on its own via CSS animation.
 // Each path spans 2880 units with a period that divides 1440, so shifting by half its width tiles seamlessly.
 const W = 2880;
 const LAYERS = [
@@ -15,12 +16,12 @@ function wavePath({ period, amp, base }) {
   return `${d} L${W} 120 L0 120 Z`;
 }
 
-export default function Waves({ className = '' }) {
+export default function Waves({ className = '', continuous = false }) {
   const root = useRef(null);
   const layers = useRef([]);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (continuous || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -40,10 +41,10 @@ export default function Waves({ className = '' }) {
     }, { rootMargin: '200px 0px' });
     io.observe(root.current);
     return () => { io.disconnect(); window.removeEventListener('scroll', onScroll); cancelAnimationFrame(frame); };
-  }, []);
+  }, [continuous]);
 
   return (
-    <div className={`waves ${className}`.trim()} ref={root} aria-hidden="true">
+    <div className={`waves${continuous ? ' waves--loop' : ''} ${className}`.trim()} ref={root} aria-hidden="true">
       {LAYERS.map((l, i) => (
         <svg key={l.className} className={`waves__layer ${l.className}`} ref={(el) => { layers.current[i] = el; }}
           viewBox={`0 0 ${W} 120`} preserveAspectRatio="none">

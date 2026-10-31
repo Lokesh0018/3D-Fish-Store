@@ -44,7 +44,7 @@ export default function App() {
         <Faq />
         <Newsletter />
       </main>
-      <Footer />
+      <Footer onFilter={setFilter} />
       <CartDrawer />
     </CartProvider>
   );
