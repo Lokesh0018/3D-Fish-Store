@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import Logo from './Logo.jsx';
 
 const STAR_PATH = 'M12 0c.7 7.2 4.8 11.3 12 12-7.2.7-11.3 4.8-12 12-.7-7.2-4.8-11.3-12-12 7.2-.7 11.3-4.8 12-12z';
 const STARS = [[21.6,13.4,34],[83.6,76.6,36],[31,23,13],[30.2,67.4,11],[50.2,81,9],[74.9,30.3,9]];
@@ -50,7 +51,7 @@ export default function Hero() {
         {dots.map((s, i) => <span key={`d${i}`} className="star dot" style={sparkleStyle(s)} />)}
       </div>
 
-      <a className="brand" href="#hero" aria-label="Finsmith, home">FINSMITH<sup aria-hidden="true">®</sup></a>
+      <a className="brand" href="#hero" aria-label="Finsmith, home"><Logo /></a>
       <h1 className="hero__title">Koi</h1>
       <canvas className={`koi${ready ? ' is-ready' : ''}`} ref={canvasRef} aria-hidden="true" />
 

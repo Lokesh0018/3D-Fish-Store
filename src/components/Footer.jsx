@@ -1,7 +1,9 @@
+import Logo from './Logo.jsx';
+
 export default function Footer() {
   return (
     <footer className="footer">
-      <a className="logo" href="#hero" aria-label="Finsmith, back to top">FINSMITH<sup aria-hidden="true">®</sup></a>
+      <a className="logo" href="#hero" aria-label="Finsmith, back to top"><Logo /></a>
       <nav className="footer__links" aria-label="Footer">
         <a href="#shop">Shop</a>
         <a href="#spotlight">Fish of the month</a>

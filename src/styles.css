@@ -33,6 +33,7 @@ h2[tabindex="-1"]:focus { outline:none }
 .koi.is-ready { opacity:1 }
 
 .brand,.logo { display:inline-flex; align-items:flex-start; font-family:var(--logo); line-height:.9; letter-spacing:-.012em; color:var(--cream); text-decoration:none }
+.logo-mark { flex:none; align-self:center; width:1.1em; height:.88em; margin-right:.2em; fill:currentColor }
 .brand sup,.logo sup { font-family:var(--body); font-weight:600; font-size:.36em; line-height:1; margin:-.05em 0 0 .18em }
 .brand { position:absolute; z-index:3; top:calc(var(--gutter) * .8 + env(safe-area-inset-top) + 6px); left:calc(var(--gutter) + env(safe-area-inset-left));
   font-size:clamp(28px,2.4vw,46px) }
