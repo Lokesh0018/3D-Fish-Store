@@ -13,7 +13,7 @@ body.no-scroll { overflow:hidden }
 img,svg { display:block }
 button { font:inherit }
 :focus-visible { outline:2px solid var(--cream); outline-offset:4px }
-h2[tabindex="-1"]:focus { outline:none }
+h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus { outline:none }
 
 /* ---------- Scrollbars (hidden; scrolling still works) ---------- */
 html,body,* { scrollbar-width:none !important; -ms-overflow-style:none }
@@ -67,18 +67,30 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:n
 .nav__cart { display:flex; align-items:center; gap:.5em }
 .nav__count { display:grid; place-items:center; min-width:1.7em; height:1.7em; padding:0 .45em; border-radius:999px; background:var(--red); color:var(--cream); font-size:.85em; letter-spacing:0 }
 .nav__rule { width:1px; height:44%; background:rgb(23 17 15 / .55) }
-.nav__menu:hover,.nav__link:hover { opacity:.6 }
+.nav__link:hover { opacity:.6 }
 .nav :focus-visible { outline-color:var(--ink); outline-offset:-4px }
 
-/* Hamburger that morphs into a close (×) icon */
+/* Menu button: soft chip behind the icon, fills red while the menu is open */
+.nav__menu { position:relative; isolation:isolate }
+.nav__menu::before { content:""; position:absolute; z-index:-1; inset:0; margin:auto; width:calc(100% - 6px); aspect-ratio:1; border-radius:50%;
+  background:var(--cream-deep); scale:.6; opacity:0; transition:scale .25s cubic-bezier(.2,.8,.2,1), opacity .2s ease, background-color .25s ease }
+.nav__menu:hover::before,.nav__menu:focus-visible::before { scale:1; opacity:1 }
+.nav-wrap.is-open .nav__menu { color:var(--cream) }
+.nav-wrap.is-open .nav__menu::before { scale:1; opacity:1; background:var(--red) }
+.nav-wrap.is-open .nav__menu:hover::before { background:var(--red-lift) }
+.nav__menu:active::before { scale:.92 }
+
+/* Hamburger: staggered lines that even out on hover, then morph into a close (×) icon */
 .burger { position:relative; display:block; width:clamp(18px,1.2vw,24px); height:14px }
-.burger i { position:absolute; left:0; width:100%; height:2px; border-radius:2px; background:currentColor;
-  transition:translate .3s cubic-bezier(.2,.8,.2,1), rotate .3s cubic-bezier(.2,.8,.2,1), opacity .15s ease }
+.burger i { position:absolute; left:0; width:100%; height:2px; border-radius:2px; background:currentColor; transform-origin:center;
+  transition:translate .3s cubic-bezier(.2,.8,.2,1), rotate .3s cubic-bezier(.2,.8,.2,1), width .25s cubic-bezier(.2,.8,.2,1), scale .2s ease, opacity .15s ease }
 .burger i:nth-child(1) { top:0 }
-.burger i:nth-child(2) { top:6px }
-.burger i:nth-child(3) { top:12px }
+.burger i:nth-child(2) { top:6px; width:70% }
+.burger i:nth-child(3) { top:12px; width:45% }
+.nav__menu:hover .burger i,.nav__menu:focus-visible .burger i { width:100% }
+.nav-wrap.is-open .burger i { width:100% }
 .nav-wrap.is-open .burger i:nth-child(1) { translate:0 6px; rotate:45deg }
-.nav-wrap.is-open .burger i:nth-child(2) { opacity:0 }
+.nav-wrap.is-open .burger i:nth-child(2) { opacity:0; scale:0 1 }
 .nav-wrap.is-open .burger i:nth-child(3) { translate:0 -6px; rotate:-45deg }
 .nav { position:relative; z-index:2 }
 
@@ -865,7 +877,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:n
 @media (prefers-reduced-motion:reduce) {
   html { scroll-behavior:auto }
   .star { animation:none }
-  .faq__item::details-content,.koi,.drawer__panel,.drawer__scrim,.card,.fish-img,.menu,.menu-scrim,.burger i,.tile,.menu [style*="--i"],[data-reveal] { transition:none }
+  .faq__item::details-content,.koi,.drawer__panel,.drawer__scrim,.card,.fish-img,.menu,.menu-scrim,.burger i,.nav__menu::before,.tile,.menu [style*="--i"],[data-reveal] { transition:none }
   .flag,.radar,.vessel,.vessel__rock,.smoke circle,.deep,.deep__drift,.sub-prop,.sub-port,.diver__leg,.diver__bubbles i,.swimmer,.swimmer__bob,.ocean__rays i,.ocean__bubbles i,.plant,.waves--loop .waves__layer,.tag,.letter,.reviews__track,.seal__ring,.ticker__track,.sort__list,.nav__count.is-bump,.bubbles i,.spotlight__art .fish-img { animation:none }
   .bubbles { display:none }
   .swimmer,.ocean__bubbles,.vessel,.deep { display:none }

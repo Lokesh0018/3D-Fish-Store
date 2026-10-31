@@ -17,6 +17,7 @@ const TILES = CATEGORIES.map((c) => {
 });
 
 const LINKS = [
+  { href: '#hero', icon: 'home', title: 'Home', hint: 'Back to the top' },
   { href: '#care', icon: 'shield', title: 'Our promise', hint: 'Quarantine & guarantee' },
   { href: '#journey', icon: 'truck', title: 'How it arrives', hint: 'Overnight, oxygen-packed' },
   { href: '#reviews', icon: 'star', title: 'Reviews', hint: 'From happy keepers' },
@@ -69,10 +70,12 @@ export default function Nav({ filter, onFilter }) {
     if (!target) return;
     requestAnimationFrame(() => requestAnimationFrame(() => {
       const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+      // the hero sits at the very top, so scroll to 0 rather than to the section's scroll-padding offset
+      if (href === '#hero') window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+      else target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
       history.replaceState(null, '', href);
       // move keyboard/screen-reader focus to the section heading without a second jump
-      const heading = target.querySelector('h2') || target;
+      const heading = target.querySelector('h1, h2') || target;
       if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
       heading.focus({ preventScroll: true });
     }));

@@ -1,5 +1,6 @@
 // Small stroke icon set on a 24×24 grid, drawn in currentColor.
 const PATHS = {
+  home: <><path d="M4 10.5 12 4l8 6.5V20h-5.5v-5.5h-5V20H4z" /></>,
   shield: <><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3z" /><path d="m8.8 12 2.2 2.2 4.2-4.4" /></>,
   truck: <><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" /><circle cx="7" cy="17.5" r="1.8" /><circle cx="17.5" cy="17.5" r="1.8" /></>,
   star: <path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" />,
