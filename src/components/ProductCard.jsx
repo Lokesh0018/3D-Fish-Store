@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useCart } from '../cart/CartContext.jsx';
+import { flyToCart } from '../cart/flyToCart.js';
 import { formatPrice } from '../data/products.js';
 import FishImage from './FishImage.jsx';
+import Icon from './Icon.jsx';
 
 export default function ProductCard({ product }) {
   const { add } = useCart();
   const [added, setAdded] = useState(false);
+  const art = useRef(null);
 
   useEffect(() => {
     if (!added) return;
@@ -15,7 +18,7 @@ export default function ProductCard({ product }) {
 
   return (
     <article className="card">
-      <div className="card__art">
+      <div className="card__art" ref={art}>
         {product.tag && <span className="card__tag">{product.tag}</span>}
         <FishImage product={product} />
       </div>
@@ -31,7 +34,8 @@ export default function ProductCard({ product }) {
           <li>{product.tank}</li>
         </ul>
         <p className="card__blurb">{product.blurb}</p>
-        <button type="button" className="btn btn--ink card__add" onClick={() => { add(product.id); setAdded(true); }}>
+        <button type="button" className={`btn btn--ink card__add${added ? ' is-added' : ''}`} onClick={() => { setAdded(true); flyToCart(art.current.querySelector('img'), () => add(product.id)); }}>
+          <Icon name={added ? 'check' : 'bag'} />
           {added ? 'Added to cart' : 'Add to cart'}
         </button>
       </div>
