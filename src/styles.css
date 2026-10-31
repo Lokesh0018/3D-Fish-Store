@@ -15,6 +15,10 @@ button { font:inherit }
 :focus-visible { outline:2px solid var(--cream); outline-offset:4px }
 h2[tabindex="-1"]:focus { outline:none }
 
+/* ---------- Scrollbars (hidden; scrolling still works) ---------- */
+html,body,* { scrollbar-width:none !important; -ms-overflow-style:none }
+html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:none !important; width:0 !important; height:0 !important }
+
 /* ---------- Hero ---------- */
 .hero { position:relative; height:100vh; height:100svh; min-height:420px; overflow:hidden; isolation:isolate; touch-action:pan-y;
   background:radial-gradient(120% 90% at 58% 46%, var(--red-lift) 0%, var(--red) 46%, var(--red-deep) 100%) }
