@@ -158,7 +158,12 @@ export class KoiScene {
       shader.fragmentShader = shader.fragmentShader
         .replace('#include <common>', '#include <common>\nvarying float vFin;')
         .replace('#include <map_fragment>', `#include <map_fragment>
-  diffuseColor.rgb = max(mix(vec3(dot(diffuseColor.rgb, vec3(0.2126,0.7152,0.0722))), diffuseColor.rgb, 1.22), 0.0);
+  // kohaku koi: the texture's coloured patches become brand red, its pale areas pearl white; luminance keeps the shading
+  float koiLum = dot(diffuseColor.rgb, vec3(0.2126,0.7152,0.0722));
+  float koiSat = max(diffuseColor.r, max(diffuseColor.g, diffuseColor.b)) - min(diffuseColor.r, min(diffuseColor.g, diffuseColor.b));
+  float koiShade = mix(0.72, 1.0, smoothstep(0.05, 0.85, koiLum));
+  vec3 koiRed = vec3(0.80, 0.06, 0.07), koiWhite = vec3(1.0, 0.975, 0.95);
+  diffuseColor.rgb = mix(koiWhite, koiRed, smoothstep(0.45, 0.62, koiSat)) * koiShade;
   diffuseColor.a *= mix(1.0, 0.84, vFin);`)
         .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
   totalEmissiveRadiance += diffuseColor.rgb * vFin * 0.22;`);
