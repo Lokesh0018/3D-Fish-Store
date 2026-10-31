@@ -22,10 +22,10 @@ export const SPOTLIGHT = {
 };
 
 export const JOURNEY = [
-  { icon: 'heart', title: 'You choose', body: 'Pick by colour, temperament or care level. Not sure? Email us a photo of your tank and we will suggest a match.' },
-  { icon: 'drop', title: 'We condition', body: 'Your fish is health-checked and fasted for 48 hours, so it travels calm in clean water.' },
-  { icon: 'truck', title: 'Overnight delivery', body: 'Oxygen-packed, double-bagged and insulated. Shipped Monday to Wednesday only.' },
-  { icon: 'route', title: 'Float & release', body: 'Follow the 30-minute acclimation card in the box. We stay on call if anything looks off.' },
+  { icon: 'heart', time: 'Anytime', title: 'You choose', body: 'Pick by colour, temperament or care level. Not sure? Email us a photo of your tank and we will suggest a match.' },
+  { icon: 'drop', time: '48 hours', title: 'We condition', body: 'Your fish is health-checked and fasted for 48 hours, so it travels calm in clean water.' },
+  { icon: 'truck', time: 'Overnight', title: 'Overnight delivery', body: 'Oxygen-packed, double-bagged and insulated. Shipped Monday to Wednesday only.' },
+  { icon: 'route', time: '30 minutes', title: 'Float & release', body: 'Follow the 30-minute acclimation card in the box. We stay on call if anything looks off.' },
 ];
 
 export const REVIEWS = [

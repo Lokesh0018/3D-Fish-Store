@@ -297,7 +297,7 @@ h2[tabindex="-1"]:focus { outline:none }
 .promise__list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,1.6vw,28px); margin:0; padding:0; list-style:none; counter-reset:none }
 .promise__item { position:relative; display:flex; flex-direction:column; height:100%; padding:clamp(22px,2vw,32px); overflow:hidden; border-radius:var(--radius);
   background:var(--cream); color:var(--ink); box-shadow:0 1px 0 rgb(255 255 255 / .6) inset, 0 26px 50px -28px rgb(60 0 4 / .75);
-  transition:transform .3s cubic-bezier(.2,.9,.25,1), box-shadow .3s ease }
+  transition:opacity .7s ease calc(var(--i, 0) * 90ms), translate .8s cubic-bezier(.2,.9,.25,1) calc(var(--i, 0) * 90ms), transform .3s cubic-bezier(.2,.9,.25,1), box-shadow .3s ease }
 .promise__item:hover { transform:translateY(-6px); box-shadow:0 1px 0 rgb(255 255 255 / .6) inset, 0 34px 60px -28px rgb(60 0 4 / .85) }
 .promise__n { position:absolute; top:12px; right:20px; font-family:var(--logo); font-size:clamp(64px,6vw,96px); line-height:1; color:transparent;
   -webkit-text-stroke:1.5px rgb(176 6 14 / .22) }
@@ -387,17 +387,54 @@ h2[tabindex="-1"]:focus { outline:none }
 .spotlight__more .icon { width:16px; height:16px; transition:translate .2s ease }
 .spotlight__more:hover .icon { translate:4px 0 }
 
-/* ---------- Journey ---------- */
-.journey { padding:clamp(64px,8vw,140px) var(--gutter); background:var(--cream); color:var(--ink) }
-.journey__steps { display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,1.6vw,28px); margin:0; padding:0; list-style:none }
-.step { position:relative; padding:24px; border-radius:var(--radius); background:#fff }
-.step:not(:last-child)::after { content:""; position:absolute; top:46px; right:calc(clamp(14px,1.6vw,28px) * -1); width:clamp(14px,1.6vw,28px); height:2px;
-  background:repeating-linear-gradient(90deg, var(--red) 0 4px, transparent 4px 8px) }
-.step__top { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px }
-.step__icon { display:grid; place-items:center; width:46px; height:46px; border-radius:14px; background:var(--red); color:var(--cream) }
-.step__n { font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft) }
-.step h3 { margin:0 0 8px; font-size:20px; font-weight:600 }
-.step p { margin:0; font-size:15px; font-weight:300; line-height:1.5 }
+/* ---------- Journey ----------
+   Four steps on a route; a fish swims along it with scroll (--p, 0→1, set in Journey.jsx). */
+.journey { position:relative; isolation:isolate; overflow:clip; padding:clamp(72px,9vw,150px) var(--gutter); color:var(--ink);
+  background:radial-gradient(50% 50% at 0% 0%, rgb(176 6 14 / .06), transparent 70%), linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%) }
+.journey__head { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,400px); align-items:end; gap:24px clamp(32px,5vw,96px) }
+.journey .eyebrow { display:flex; align-items:center; gap:10px; color:var(--red); opacity:1 }
+.journey .eyebrow::before { content:""; width:22px; height:2px; border-radius:2px; background:currentColor }
+.journey__lede { margin:0; padding-left:18px; border-left:2px solid rgb(176 6 14 / .45); font-size:clamp(15px,1.1vw,17px); line-height:1.6; color:var(--ink-soft) }
+
+.route { --gap:clamp(14px,1.6vw,28px); --lane:64px; position:relative; padding-top:var(--lane) }
+.route__track { position:absolute; top:calc(var(--lane) / 2 - 2px); height:4px; border-radius:4px; left:calc((100% - 3 * var(--gap)) / 8); right:calc((100% - 3 * var(--gap)) / 8);
+  background:repeating-linear-gradient(90deg, rgb(23 17 15 / .2) 0 8px, transparent 8px 16px) }
+.route__fill { position:absolute; left:0; top:0; height:100%; width:calc(var(--p, 0) * 100%); border-radius:4px;
+  background:linear-gradient(90deg, var(--red-deep), var(--red-lift)); box-shadow:0 0 14px rgb(176 6 14 / .35) }
+.route__fish { position:absolute; z-index:2; top:50%; left:calc(var(--p, 0) * 100%); translate:-50% -50%; display:grid; place-items:center; width:46px; height:46px;
+  border-radius:50%; background:#fff; color:var(--red); box-shadow:0 0 0 4px rgb(176 6 14 / .12), 0 10px 22px -8px rgb(var(--shadow) / .45) }
+.route__fish .logo-mark { width:26px; height:21px; margin:0 }
+
+.journey__steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gap); margin:0; padding:0; list-style:none }
+.step { position:relative; display:flex; flex-direction:column; padding:24px; border-radius:var(--radius); background:#fff; border:1px solid rgb(23 17 15 / .07);
+  box-shadow:0 1px 2px rgb(23 17 15 / .04), 0 18px 40px -30px rgb(var(--shadow) / .5);
+  transition:opacity .7s ease calc(var(--i, 0) * 90ms), translate .8s cubic-bezier(.2,.9,.25,1) calc(var(--i, 0) * 90ms), transform .45s cubic-bezier(.2,.9,.25,1), border-color .4s ease, box-shadow .4s ease }
+.step::before { content:""; position:absolute; top:-1px; left:24px; right:24px; height:3px; border-radius:0 0 3px 3px; background:var(--red);
+  transform:scaleX(0); transform-origin:left; transition:transform .5s cubic-bezier(.2,.9,.25,1) }
+.step.is-current { transform:translateY(-8px); box-shadow:0 1px 2px rgb(23 17 15 / .04), 0 34px 60px -30px rgb(var(--shadow) / .6) }
+.step.is-current::before { transform:scaleX(1) }
+.step__node { transition:background .3s ease, border-color .3s ease, box-shadow .3s ease, transform .45s cubic-bezier(.2,.9,.25,1) }
+.step.is-current .step__node { transform:translateY(8px) } /* stay on the track while the card lifts */
+.step.is-reached { border-color:rgb(176 6 14 / .22); box-shadow:0 1px 2px rgb(23 17 15 / .04), 0 24px 46px -28px rgb(var(--shadow) / .55) }
+.step__node { position:absolute; left:50%; top:calc(var(--lane) / -2); translate:-50% -50%; width:18px; height:18px; border-radius:50%;
+  background:var(--cream); border:2px solid rgb(23 17 15 / .25); transition:background .3s ease, border-color .3s ease, box-shadow .3s ease }
+.step.is-reached .step__node { background:var(--red); border-color:var(--red); box-shadow:0 0 0 5px rgb(176 6 14 / .14) }
+.step__top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:22px }
+.step__icon { display:grid; place-items:center; width:48px; height:48px; border-radius:15px; background:var(--cream-deep); color:var(--red); transition:background .3s ease, color .3s ease }
+.step.is-reached .step__icon { background:var(--red); color:var(--cream) }
+.step__time { display:inline-flex; align-items:center; gap:6px; padding:6px 11px; border-radius:999px; background:var(--cream); font-size:12px; font-weight:600; color:var(--ink-soft) }
+.step__time .icon { width:14px; height:14px }
+.step .step__n { margin:0 0 6px; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--red) }
+.step h3 { margin:0 0 8px; font-size:20px; font-weight:600; letter-spacing:-.01em }
+.step p { margin:0; font-size:15px; line-height:1.55; color:var(--ink-soft) }
+.journey__foot { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px 28px; margin-top:clamp(36px,4vw,64px);
+  padding:14px 14px 14px 26px; border-radius:28px; background:rgb(255 255 255 / .7); border:1px solid rgb(23 17 15 / .07); box-shadow:0 18px 40px -32px rgb(var(--shadow) / .5) }
+.journey__facts { display:flex; flex-wrap:wrap; gap:10px 28px; margin:0; padding:0; list-style:none }
+.journey__facts li { display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600 }
+.journey__facts .icon { width:20px; height:20px; color:var(--red) }
+.journey__cta { gap:.6em; min-height:48px; padding:13px 24px }
+.journey__cta .icon { width:18px; height:18px; transition:translate .2s ease }
+.journey__cta:hover .icon { translate:3px 0 }
 
 /* ---------- Reviews ---------- */
 .reviews { padding:clamp(64px,8vw,140px) var(--gutter); background:var(--ink) }
@@ -487,13 +524,27 @@ h2[tabindex="-1"]:focus { outline:none }
 /* ---------- Responsive ---------- */
 @media (orientation:portrait) { .hero__title { font-size:36vw; top:40% } }
 @media (max-width:1100px) {
-  .journey__steps { grid-template-columns:repeat(2,1fr) }
-  .step::after { display:none }
+  /* route turns vertical: track on the left, fish swims down */
+  .route { --lane:58px; padding:0 0 0 var(--lane); max-width:780px }
+  .route__track { top:0; bottom:0; left:calc(var(--lane) / 2 - 1px); right:auto; width:2px; height:auto;
+    background:repeating-linear-gradient(180deg, rgb(23 17 15 / .22) 0 6px, transparent 6px 12px) }
+  .route__fill { width:100%; height:calc(var(--p, 0) * 100%) }
+  .route__fish { top:calc(var(--p, 0) * 100%); left:50%; width:40px; height:40px }
+  .route__fish .logo-mark { rotate:90deg }
+  .route__track { left:calc(var(--lane) / 2 - 2px); width:4px }
+  .route__fill { background:linear-gradient(180deg, var(--red-deep), var(--red-lift)) }
+  .step.is-current { transform:translateX(6px) }
+  .step.is-current .step__node { transform:translateX(-6px) }
+  .journey__foot { padding:18px; border-radius:24px }
+  .journey__cta { width:100% }
+  .journey__steps { grid-template-columns:1fr }
+  .step__node { left:calc(var(--lane) / -2); top:36px }
   .reviews__list { grid-template-columns:1fr }
   .review { max-width:720px }
 }
 @media (max-width:900px) {
   .spotlight,.faq { grid-template-columns:1fr }
+  .journey__head { grid-template-columns:1fr }
   .promise__list { grid-template-columns:1fr; max-width:620px }
   .spotlight__stage { max-width:400px }
   .spotlight__badge { width:88px; height:88px; font-size:10px; right:-6px }
