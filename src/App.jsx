@@ -26,9 +26,22 @@ function useReveal() {
   }, []);
 }
 
+// Pauses the looping CSS animations inside [data-anim] blocks while they are off screen.
+function useAnimateInView() {
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => e.target.classList.toggle('is-paused', !e.isIntersecting));
+    }, { rootMargin: '100px 0px' });
+    document.querySelectorAll('[data-anim]').forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
+
 export default function App() {
   const [filter, setFilter] = useState('all');
   useReveal();
+  useAnimateInView();
 
   return (
     <CartProvider>

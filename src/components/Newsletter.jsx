@@ -25,7 +25,7 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="newsletter" id="newsletter" aria-labelledby="newsletter-title">
+    <section className="newsletter" id="newsletter" aria-labelledby="newsletter-title" data-anim>
       <Waves className="waves--newsletter" />
       <div className="newsletter__card" data-reveal>
         <div className="newsletter__body">

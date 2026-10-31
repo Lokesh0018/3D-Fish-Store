@@ -11,7 +11,7 @@ const RING = 2 * Math.PI * 52;
 
 export default function CarePromise() {
   return (
-    <section className="promise" id="care" aria-labelledby="care-title">
+    <section className="promise" id="care" aria-labelledby="care-title" data-anim>
       <div className="section-head promise__head" data-reveal>
         <div>
           <p className="eyebrow">Our promise</p>

@@ -19,7 +19,7 @@ const PROMISES = [
 
 export default function Footer({ onFilter }) {
   return (
-    <footer className="footer">
+    <footer className="footer" data-anim>
       <Waves className="waves--footer" continuous />
       <Surface />
       <OceanScene />

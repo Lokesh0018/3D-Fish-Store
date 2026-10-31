@@ -23,7 +23,7 @@ export default function Spotlight({ onFilter }) {
   }, [added]);
 
   return (
-    <section className="spotlight" id="spotlight" aria-labelledby="spotlight-title">
+    <section className="spotlight" id="spotlight" aria-labelledby="spotlight-title" data-anim>
       <Waves className="waves--spotlight" />
       <div className="bubbles" aria-hidden="true">
         {BUBBLES.map(([x, s, d, o]) => <i key={x} style={{ '--x': `${x}%`, '--s': `${s}px`, '--d': `${d}s`, '--o': `${o}s` }} />)}

@@ -11,7 +11,7 @@ export default function Ticker() {
     </ul>
   );
   return (
-    <section className="ticker" aria-label="Why buy from Finsmith">
+    <section className="ticker" aria-label="Why buy from Finsmith" data-anim>
       <div className="ticker__track">{row(false)}{row(true)}</div>
     </section>
   );

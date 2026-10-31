@@ -16,7 +16,7 @@ const Stars = ({ rating, className = 'review__stars' }) => (
 
 export default function Reviews() {
   return (
-    <section className="reviews" id="reviews" aria-labelledby="reviews-title">
+    <section className="reviews" id="reviews" aria-labelledby="reviews-title" data-anim>
       <Waves className="waves--reviews" />
       <div className="reviews__inner">
         <div className="section-head reviews__head" data-reveal>

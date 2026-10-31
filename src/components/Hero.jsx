@@ -43,7 +43,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <header className="hero" id="hero" ref={heroRef}>
+    <header className="hero" id="hero" ref={heroRef} data-anim>
       <div className="sky" aria-hidden="true">
         {stars.map((s, i) => (
           <svg key={`s${i}`} className="star" viewBox="0 0 24 24" style={sparkleStyle(s)}><path d={STAR_PATH} /></svg>

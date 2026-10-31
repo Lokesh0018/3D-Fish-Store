@@ -19,6 +19,9 @@ h2[tabindex="-1"]:focus { outline:none }
 html,body,* { scrollbar-width:none !important; -ms-overflow-style:none }
 html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar { display:none !important; width:0 !important; height:0 !important }
 
+/* ---------- Off-screen pause: looping animations only run while their section is in view ---------- */
+[data-anim].is-paused, [data-anim].is-paused *, [data-anim].is-paused *::before, [data-anim].is-paused *::after { animation-play-state:paused !important }
+
 /* ---------- Hero ---------- */
 .hero { position:relative; height:100vh; height:100svh; min-height:420px; overflow:hidden; isolation:isolate; touch-action:pan-y;
   background:radial-gradient(120% 90% at 58% 46%, var(--red-lift) 0%, var(--red) 46%, var(--red-deep) 100%) }
