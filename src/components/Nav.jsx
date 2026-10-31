@@ -61,7 +61,23 @@ export default function Nav({ filter, onFilter }) {
     list[(next + list.length) % list.length].focus();
   };
 
-  const pick = (f) => { onFilter(f); close(false); };
+  // Close first, then scroll once the menu's scroll lock has lifted (a plain hash jump gets cancelled by it).
+  const goTo = (e, href) => {
+    e.preventDefault();
+    close(false);
+    const target = document.querySelector(href);
+    if (!target) return;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+      history.replaceState(null, '', href);
+      // move keyboard/screen-reader focus to the section heading without a second jump
+      const heading = target.querySelector('h2') || target;
+      if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+      heading.focus({ preventScroll: true });
+    }));
+  };
+  const pick = (e, f) => { onFilter(f); goTo(e, '#shop'); };
   const openCart = () => { close(false); setOpen(true); };
   const toFree = FREE_SHIPPING_FROM - subtotal;
   let order = 0;
@@ -96,7 +112,7 @@ export default function Nav({ filter, onFilter }) {
                 const active = filter === t.filter;
                 return (
                   <li key={t.filter} style={{ '--i': order++ }}>
-                    <a className="tile" href="#shop" data-menu-item aria-current={active ? 'true' : undefined} onClick={() => pick(t.filter)}>
+                    <a className="tile" href="#shop" data-menu-item aria-current={active ? 'true' : undefined} onClick={(e) => pick(e, t.filter)}>
                       <span className="tile__art"><FishImage product={t.product} eager /></span>
                       <span className="tile__body">
                         <span className="tile__label">{t.label}</span>
@@ -113,7 +129,7 @@ export default function Nav({ filter, onFilter }) {
           </div>
 
           <div className="menu__side">
-            <a className="feature" href="#spotlight" data-menu-item onClick={() => close(false)} style={{ '--i': order++ }}>
+            <a className="feature" href="#spotlight" data-menu-item onClick={(e) => goTo(e, '#spotlight')} style={{ '--i': order++ }}>
               <span className="feature__art"><FishImage product={spotlight} eager /></span>
               <span className="feature__text">
                 <span className="feature__tag"><Icon name="sparkle" filled /> Fish of the month</span>
@@ -126,7 +142,7 @@ export default function Nav({ filter, onFilter }) {
             <ul className="menu__links" aria-labelledby="menu-explore">
               {LINKS.map((l) => (
                 <li key={l.href} style={{ '--i': order++ }}>
-                  <a className="mlink" href={l.href} data-menu-item onClick={() => close(false)}>
+                  <a className="mlink" href={l.href} data-menu-item onClick={(e) => goTo(e, l.href)}>
                     <span className="mlink__icon"><Icon name={l.icon} /></span>
                     <span className="mlink__text">
                       <span className="mlink__title">{l.title}</span>

@@ -24,14 +24,23 @@ export function flyToCart(img, done) {
   outer.appendChild(inner);
   document.body.appendChild(outer);
 
-  const duration = 850;
-  outer.animate([{ transform: 'translateX(0)' }, { transform: `translateX(${dx}px)` }],
-    { duration, easing: 'cubic-bezier(.45,0,.55,1)', fill: 'forwards' });
+  // two phases: a short dive below the card (x barely moves), then a wiggling swim up into the cart
+  const duration = 1150;
+  const dive = Math.min(90, size * 0.35);
+  outer.animate([
+    { transform: 'translateX(0)', easing: 'ease-out' },
+    { transform: `translateX(${dx * 0.04}px)`, offset: 0.34, easing: 'cubic-bezier(.45,0,.4,1)' },
+    { transform: `translateX(${dx}px)` },
+  ], { duration, fill: 'forwards' });
   const flight = inner.animate([
-    { transform: 'translateY(0) scale(1) rotate(0)', opacity: 1 },
-    { transform: `translateY(${dy * 0.35 - 90}px) scale(.55) rotate(-14deg)`, opacity: 1, offset: 0.4 },
-    { transform: `translateY(${dy}px) scale(.08) rotate(8deg)`, opacity: 0.7 },
-  ], { duration, easing: 'cubic-bezier(.4,0,.6,1)', fill: 'forwards' });
+    { transform: 'translateY(0) scale(1) rotate(0)', opacity: 1, easing: 'ease-in' },
+    { transform: `translateY(${dive * 0.25}px) scale(1.04) rotate(6deg)`, offset: 0.12, easing: 'ease-in-out' },
+    { transform: `translateY(${dive}px) scale(.9) rotate(14deg)`, offset: 0.34, easing: 'cubic-bezier(.5,0,.6,1)' },
+    { transform: `translateY(${dy * 0.35}px) scale(.62) rotate(-18deg)`, offset: 0.56, easing: 'ease-in-out' },
+    { transform: `translateY(${dy * 0.7}px) scale(.38) rotate(-4deg)`, offset: 0.76, easing: 'ease-in-out' },
+    { transform: `translateY(${dy * 0.9}px) scale(.2) rotate(-16deg)`, opacity: 0.9, offset: 0.9, easing: 'ease-in' },
+    { transform: `translateY(${dy}px) scale(.08) rotate(-8deg)`, opacity: 0.6 },
+  ], { duration, fill: 'forwards' });
 
   flight.onfinish = () => { outer.remove(); done(); bump(target); };
 }

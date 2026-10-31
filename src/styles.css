@@ -13,6 +13,7 @@ body.no-scroll { overflow:hidden }
 img,svg { display:block }
 button { font:inherit }
 :focus-visible { outline:2px solid var(--cream); outline-offset:4px }
+h2[tabindex="-1"]:focus { outline:none }
 
 /* ---------- Hero ---------- */
 .hero { position:relative; height:100vh; height:100svh; min-height:420px; overflow:hidden; isolation:isolate; touch-action:pan-y;
