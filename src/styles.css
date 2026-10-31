@@ -398,6 +398,51 @@ h2[tabindex="-1"]:focus { outline:none }
 .ocean__coral { position:absolute; right:3%; bottom:-10px; width:clamp(110px,12vw,190px); opacity:.6; filter:saturate(.8) brightness(.75) }
 .ocean__shell { position:absolute; left:22%; bottom:-6px; width:clamp(56px,5vw,84px); opacity:.55; filter:brightness(.7) }
 
+/* vessel palette (shared by boats, ship, submarine, diver) */
+.v-red { fill:var(--red) } .v-teal { fill:#2f8e98 } .v-cream { fill:var(--cream) } .v-ink-fill { fill:var(--ink) }
+.v-ink { fill:none; stroke:var(--ink); stroke-linecap:round }
+.v-line { stroke:var(--ink); stroke-width:1.5 }
+
+/* surface traffic, riding the wave band at the top of the footer */
+.surface { position:absolute; top:0; left:0; right:0; z-index:2; height:clamp(44px,5vw,80px); overflow:hidden; pointer-events:none }
+.vessel { position:absolute; left:0; bottom:30%; width:var(--w);
+  animation:swim-r var(--dur) linear var(--delay) infinite }
+.vessel--l { animation-name:swim-l }
+.vessel--l svg { scale:-1 1 }
+.vessel__rock { transform-origin:50% 100%; animation:rock 3.6s ease-in-out infinite alternate }
+.vessel:nth-child(2) .vessel__rock { animation-duration:2.8s }
+.vessel:nth-child(3) .vessel__rock { animation-duration:3.2s; animation-delay:-1s }
+.vessel svg { display:block; width:100%; height:auto; overflow:visible }
+.flag { transform-box:fill-box; transform-origin:0 50%; animation:flutter .9s ease-in-out infinite alternate }
+@keyframes flutter { to { scale:.82 1 } }
+.radar { transform-box:fill-box; transform-origin:center; animation:prop 2.4s linear infinite }
+@keyframes rock { from { rotate:-3deg; translate:0 1px } to { rotate:3deg; translate:0 -2px } }
+.smoke circle { fill:rgb(23 17 15 / .25); animation:smoke 3s ease-out infinite }
+.smoke circle:nth-child(2) { animation-delay:1s } .smoke circle:nth-child(3) { animation-delay:2s }
+@keyframes smoke { from { translate:0 0; scale:.6; opacity:.8 } to { translate:-14px -14px; scale:1.6; opacity:0 } }
+
+/* deep water: submarine and diver (faint and soft, like the mid-depth fish) */
+.deep { position:absolute; top:var(--top); left:0; width:var(--w); animation:swim-r var(--dur) linear var(--delay) infinite }
+.deep--l { animation-name:swim-l }
+.deep--l svg { scale:-1 1 }
+.deep svg { display:block; width:100%; height:auto; overflow:visible }
+.deep--sub { opacity:.6; filter:blur(.4px) saturate(.8) }
+.deep--diver { opacity:.7; filter:blur(.3px) }
+.deep__drift { position:relative; animation:fish-bob 5s ease-in-out infinite alternate }
+.sub-port { animation:port-glow 2.6s ease-in-out infinite alternate }
+@keyframes port-glow { from { opacity:.75 } to { opacity:1 } }
+.sub-prop { transform-box:fill-box; transform-origin:center; animation:prop .5s linear infinite }
+@keyframes prop { 50% { scale:1 .2 } }
+.diver__leg { transform-box:view-box; transform-origin:78px 33px; animation:kick 1.3s ease-in-out infinite alternate }
+.diver__leg--b { animation-direction:alternate-reverse }
+@keyframes kick { from { rotate:-9deg } to { rotate:9deg } }
+.diver__bubbles { position:absolute; top:30%; left:79% }
+.deep--l .diver__bubbles { left:21% }
+.diver__bubbles i { position:absolute; width:5px; height:5px; border-radius:50%; border:1px solid rgb(190 240 238 / .7); animation:rise-short 2.4s ease-out infinite }
+.diver__bubbles i:nth-child(2) { width:4px; height:4px; left:5px; animation-delay:.8s }
+.diver__bubbles i:nth-child(3) { width:6px; height:6px; left:-3px; animation-delay:1.6s }
+@keyframes rise-short { from { translate:0 0; opacity:0 } 20% { opacity:1 } to { translate:4px -60px; opacity:0 } }
+
 /* ---------- Shared bits ---------- */
 .btn--cream { background:var(--cream); color:var(--ink) }
 .btn--cream:hover { background:#fff }
@@ -791,6 +836,8 @@ h2[tabindex="-1"]:focus { outline:none }
   .footer__cols > :last-child { grid-column:1 / -1 }
   .footer { padding-bottom:calc(120px + env(safe-area-inset-bottom)) }
   .swimmer--near { width:calc(var(--size) * .75) }
+  .vessel { width:calc(var(--w) * .52); bottom:20% }
+  .deep { width:calc(var(--w) * .7) }
   .faq__item p { padding:0 18px 20px 22px }
   .newsletter__field { flex-wrap:wrap; border-radius:24px; padding:8px 8px 8px 16px }
   .newsletter__field input { flex-basis:60% }
@@ -812,9 +859,9 @@ h2[tabindex="-1"]:focus { outline:none }
   html { scroll-behavior:auto }
   .star { animation:none }
   .faq__item::details-content,.koi,.drawer__panel,.drawer__scrim,.card,.fish-img,.menu,.menu-scrim,.burger i,.tile,.menu [style*="--i"],[data-reveal] { transition:none }
-  .swimmer,.swimmer__bob,.ocean__rays i,.ocean__bubbles i,.plant,.waves--loop .waves__layer,.tag,.letter,.reviews__track,.seal__ring,.ticker__track,.sort__list,.nav__count.is-bump,.bubbles i,.spotlight__art .fish-img { animation:none }
+  .flag,.radar,.vessel,.vessel__rock,.smoke circle,.deep,.deep__drift,.sub-prop,.sub-port,.diver__leg,.diver__bubbles i,.swimmer,.swimmer__bob,.ocean__rays i,.ocean__bubbles i,.plant,.waves--loop .waves__layer,.tag,.letter,.reviews__track,.seal__ring,.ticker__track,.sort__list,.nav__count.is-bump,.bubbles i,.spotlight__art .fish-img { animation:none }
   .bubbles { display:none }
-  .swimmer,.ocean__bubbles { display:none }
+  .swimmer,.ocean__bubbles,.vessel,.deep { display:none }
   .reviews__marquee { overflow-x:auto; scroll-snap-type:x mandatory; padding-inline:var(--gutter); -webkit-mask-image:none; mask-image:none }
   .review { scroll-snap-align:start }
   .review--copy { display:none }

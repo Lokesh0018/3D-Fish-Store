@@ -1,7 +1,7 @@
 import { CATEGORIES } from '../data/products.js';
 import Icon from './Icon.jsx';
 import Logo from './Logo.jsx';
-import OceanScene from './OceanScene.jsx';
+import OceanScene, { Surface } from './OceanScene.jsx';
 import Waves from './Waves.jsx';
 
 const EXPLORE = [
@@ -21,6 +21,7 @@ export default function Footer({ onFilter }) {
   return (
     <footer className="footer">
       <Waves className="waves--footer" continuous />
+      <Surface />
       <OceanScene />
       <div className="footer__inner">
         <div className="footer__top">

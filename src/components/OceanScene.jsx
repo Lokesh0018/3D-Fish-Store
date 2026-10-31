@@ -1,6 +1,7 @@
 import { PRODUCTS } from '../data/products.js';
 import coral from '../assets/images/deco/coral.webp';
 import shell from '../assets/images/deco/shell.webp';
+import { Ship, Sailboat, FishingBoat, Submarine, Diver } from './Vessels.jsx';
 
 // Decorative underwater scene for the footer background: light rays, fish at three depths,
 // swaying seaweed, rising bubbles and a sea floor. Pure CSS animation (transform/opacity only).
@@ -47,6 +48,43 @@ function Seaweed() {
   );
 }
 
+// ---- Surface traffic (sits in the footer's wave band) ----
+// Craft are drawn facing right (Vessels.jsx); ones heading left are flipped in CSS.
+const VESSELS = [
+  { C: Ship, w: 140, dur: 110, delay: -20, dir: 'r' },
+  { C: Sailboat, w: 58, dur: 70, delay: -45, dir: 'l' },
+  { C: FishingBoat, w: 60, dur: 85, delay: -70, dir: 'r' },
+];
+
+export function Surface() {
+  return (
+    <div className="surface" aria-hidden="true">
+      {VESSELS.map(({ C, w, dur, delay, dir }, i) => (
+        <div key={i} className={`vessel vessel--${dir}`} style={{ '--w': `${w}px`, '--dur': `${dur}s`, '--delay': `${delay}s` }}>
+          <div className="vessel__rock"><C /></div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ---- Deep water: a submarine and a diver ----
+export function DeepDivers() {
+  return (
+    <>
+      <div className="deep deep--sub" style={{ '--top': '46%', '--w': '200px', '--dur': '120s', '--delay': '-35s' }}>
+        <div className="deep__drift"><Submarine /></div>
+      </div>
+      <div className="deep deep--diver deep--l" style={{ '--top': '18%', '--w': '150px', '--dur': '80s', '--delay': '-10s' }}>
+        <div className="deep__drift">
+          <Diver />
+          <span className="diver__bubbles"><i /><i /><i /></span>
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function OceanScene() {
   return (
     <div className="ocean" aria-hidden="true">
@@ -62,6 +100,8 @@ export default function OceanScene() {
           </div>
         </div>
       ))}
+
+      <DeepDivers />
 
       <div className="ocean__bubbles">
         {BUBBLES.map(([x, s, d, o]) => <i key={x} style={{ '--x': `${x}%`, '--s': `${s}px`, '--d': `${d}s`, '--o': `${o}s` }} />)}
