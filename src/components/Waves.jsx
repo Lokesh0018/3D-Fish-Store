@@ -15,7 +15,7 @@ function wavePath({ period, amp, base }) {
   return `${d} L${W} 120 L0 120 Z`;
 }
 
-export default function Waves() {
+export default function Waves({ className = '' }) {
   const root = useRef(null);
   const layers = useRef([]);
 
@@ -43,7 +43,7 @@ export default function Waves() {
   }, []);
 
   return (
-    <div className="waves" ref={root} aria-hidden="true">
+    <div className={`waves ${className}`.trim()} ref={root} aria-hidden="true">
       {LAYERS.map((l, i) => (
         <svg key={l.className} className={`waves__layer ${l.className}`} ref={(el) => { layers.current[i] = el; }}
           viewBox={`0 0 ${W} 120`} preserveAspectRatio="none">
